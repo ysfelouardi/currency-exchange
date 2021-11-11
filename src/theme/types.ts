@@ -7,6 +7,7 @@ export interface ThemeInterface extends DefaultTheme {
     warn: string;
     dark: string;
     gray: string;
+    bg: string;
     lightGray: string;
   };
   fontWeight: {
