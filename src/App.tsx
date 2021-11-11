@@ -1,11 +1,12 @@
 import Theme from "./theme";
 import Layout from "./components/Layout";
+import ConverterFeature from "./features/ConverterFeature";
 
 function App() {
   return (
     <Theme>
       <Layout>
-        <section>main section</section>
+        <ConverterFeature />
       </Layout>
     </Theme>
   );
