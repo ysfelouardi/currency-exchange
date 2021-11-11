@@ -2,7 +2,6 @@ import styled from "styled-components/macro";
 
 export const StyledHeader = styled.header`
   min-height: 80px;
-  padding: 10px 0;
   display: flex;
   align-items: center;
   justify-content: space-around;

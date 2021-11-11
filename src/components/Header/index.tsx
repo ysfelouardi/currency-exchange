@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Logo, StyledHeader } from "./styles";
 import { ReactComponent as Icon } from "../../assets/svgs/find_replace_black_24dp.svg";
+import NavBar from "../NavBar";
 
 function Header() {
   return (
@@ -8,8 +9,14 @@ function Header() {
       <Logo>
         <Icon /> Currency <strong>Exchange</strong>
       </Logo>
-      <h1>heading</h1>
-      <h1>subheading</h1>
+      <NavBar>
+        <NavBar.Item title={"currencyConverter"}>
+          currency converter
+        </NavBar.Item>
+        <NavBar.Item title={"currencyHistory"}>
+          view currency history
+        </NavBar.Item>
+      </NavBar>
     </StyledHeader>
   );
 }
