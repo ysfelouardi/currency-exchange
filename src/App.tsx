@@ -1,13 +1,14 @@
 import Theme from "./theme";
+import Layout from "./components/Layout";
 
 function App() {
   return (
-      <Theme>
-        <h1>hello world</h1>
-      </Theme>
+    <Theme>
+      <Layout>
+        <section>main section</section>
+      </Layout>
+    </Theme>
   );
 }
-
-
 
 export default App;

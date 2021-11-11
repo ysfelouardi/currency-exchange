@@ -10,6 +10,7 @@ const customTheme: ThemeInterface = {
     dark: "#404040",
     gray: "#8D8D8D",
     warn: "#C70D38",
+    lightGray: "#f2f2f2",
   },
   fontWeight: {
     regular: 400,
