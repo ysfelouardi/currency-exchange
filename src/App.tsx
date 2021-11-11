@@ -1,8 +1,13 @@
+import Theme from "./theme";
 
 function App() {
   return (
-    <h1>hello world</h1>
+      <Theme>
+        <h1>hello world</h1>
+      </Theme>
   );
 }
+
+
 
 export default App;
