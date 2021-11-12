@@ -2,19 +2,21 @@ import { memo, useCallback } from "react";
 import { StyledForm } from "./styles";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
-import { ReactComponent as CompareIcon } from "../../../assets/svgs/compare_arrows_black_24dp.svg";
+import { ReactComponent as SwitchIcon } from "../../../assets/svgs/compare_arrows_black_24dp.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface ConversionFormValues {
-  Amount: number;
-  From: string;
-  To: string;
+  amount: number;
+  from: string;
+  to: string;
 }
 
 function ConversionForm() {
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<ConversionFormValues>();
 
@@ -24,41 +26,51 @@ function ConversionForm() {
     console.log({ data });
   }, []);
 
+  const handleSwitchValues = useCallback(() => {
+    const [from, to] = getValues(["from", "to"]);
+    if (from !== "" && to !== "") {
+      console.log({ from, to });
+      setValue("from", to);
+      setValue("to", from);
+    }
+  }, [getValues, setValue]);
+
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Input
         type={"number"}
-        label={"Amount"}
-        {...register("Amount", {
+        label={"amount"}
+        {...register("amount", {
           required: "* required!",
           validate: {
             value: (v: number) => v > 0 || "* only positive amounts",
           },
         })}
-        error={errors?.Amount?.message}
+        error={errors?.amount?.message}
       />
       <Input
         className={"col2"}
         type={"text"}
-        label={"From"}
-        {...register("From", {
+        label={"from"}
+        {...register("from", {
           required: "* required!",
         })}
-        error={errors?.From?.message}
+        error={errors?.from?.message}
       />
       <Button
         htmlType="button"
         variant="secondary"
-        startIcon={<CompareIcon />}
+        startIcon={<SwitchIcon />}
+        onClick={handleSwitchValues}
       />
       <Input
         className={"col2"}
         type={"text"}
-        label={"To"}
-        {...register("To", {
+        label={"to"}
+        {...register("to", {
           required: "* required!",
         })}
-        error={errors?.To?.message}
+        error={errors?.to?.message}
       />
       <Button htmlType="submit" variant="primary" text={"convert"} />
     </StyledForm>
