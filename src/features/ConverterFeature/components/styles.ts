@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledForm = styled.form`
   display: flex;
@@ -22,7 +22,7 @@ export const StyledForm = styled.form`
   }
 `;
 
-export const ResultContainer = styled.div`
+export const ResultContainer = styled.div<{ hasError?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,4 +48,11 @@ export const ResultContainer = styled.div`
     flex-direction: column;
     font-size: 18px;
   }
+
+  ${({ hasError, theme }) =>
+    hasError &&
+    css`
+      color: ${theme.colors.warn};
+      font-weight: ${theme.fontWeight.body};
+    `}
 `;

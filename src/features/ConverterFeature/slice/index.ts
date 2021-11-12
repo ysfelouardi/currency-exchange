@@ -30,8 +30,14 @@ const slice = createSlice({
       state.conversionFormValues = action.payload;
       state.error = null;
     },
-    amountConverted(state, action) {
+    amountConverted(
+      state,
+      action: PayloadAction<{ base: number; target: number; result: number }>
+    ) {
       state.loading = false;
+      state.baseCurrencyRate = action.payload.base;
+      state.targetCurrencyRate = action.payload.target;
+      state.conversionResult = action.payload.result;
     },
     convertAmountFailed(state, action: PayloadAction<string>) {
       state.loading = false;

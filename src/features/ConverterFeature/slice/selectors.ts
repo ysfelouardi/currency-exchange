@@ -14,3 +14,18 @@ export const selectExchangeRates = createSelector(
   [selectSlice],
   ({ exchangeRates }) => exchangeRates
 );
+
+export const selectConversionResult = createSelector(
+  [selectSlice],
+  ({
+    baseCurrencyRate,
+    targetCurrencyRate,
+    conversionResult,
+    conversionFormValues,
+  }) => ({
+    baseCurrencyRate,
+    targetCurrencyRate,
+    conversionResult,
+    conversionFormValues,
+  })
+);
