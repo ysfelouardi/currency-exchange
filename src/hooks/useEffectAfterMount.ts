@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 export default function useEffectAfterMount(
   cb = () => {},
-  dependencies: any[any] = []
+  dependencies: Array<any> = []
 ) {
   const justMounted = useRef(true);
   // eslint-disable-next-line consistent-return

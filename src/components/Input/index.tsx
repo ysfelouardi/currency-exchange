@@ -7,18 +7,26 @@ interface InputProps {
   type: "text" | "number";
   value?: string;
   onChange?: ChangeEventHandler;
+  className?: string;
 }
 
-function Input({ label, value, name, type = "text", onChange }: InputProps) {
+function Input({
+  label,
+  value,
+  name,
+  type = "text",
+  onChange,
+  className,
+}: InputProps) {
   return (
-    <InputWrapper>
+    <InputWrapper className={className}>
       <Label htmlFor={name}>{label}</Label>
       <StyledInput
         name={name}
         type={type}
         onChange={onChange}
         value={value}
-        min="0"
+        {...(type === "number" && { min: 0 })}
       />
     </InputWrapper>
   );
