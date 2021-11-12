@@ -9,7 +9,6 @@ export const StyledInput = styled.input`
   font-weight: ${(props) => props.theme.fontWeight.bold};
   border-bottom: 2px solid ${(props) => props.theme.colors.lightGray};
   color: ${(props) => props.theme.colors.dark};
-  /* padding-left: 25px;*/
   display: block;
   ${({ disabled }) => disabled && "cursor : not-allowed;"}
 `;
