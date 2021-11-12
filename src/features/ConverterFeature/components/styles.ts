@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 
 export const StyledForm = styled.form`
   display: flex;
@@ -26,7 +26,7 @@ export const ResultContainer = styled.div<{ hasError?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 240px;
+  height: 240px;
   flex-direction: column;
   color: ${(props) => props.theme.colors.gray};
 

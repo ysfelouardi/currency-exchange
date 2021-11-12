@@ -6,6 +6,7 @@ import {
   selectError,
   selectLoading,
 } from "../slice/selectors";
+import Spinner from "../../../components/Spinner";
 
 function ConversionResult() {
   const loading = useSelector(selectLoading);
@@ -19,7 +20,11 @@ function ConversionResult() {
   } = useSelector(selectConversionResult);
 
   if (loading) {
-    return <ResultContainer>loading ...</ResultContainer>;
+    return (
+      <ResultContainer>
+        <Spinner />
+      </ResultContainer>
+    );
   }
 
   if (error) {

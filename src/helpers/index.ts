@@ -12,8 +12,8 @@ export function calculateExchangeResult({
   const result = Number((amount * baseRate).toFixed(4));
 
   return {
-    base: baseRate,
-    target: targetRate,
+    base: Number(baseRate.toFixed(6)),
+    target: Number(targetRate.toFixed(6)),
     result,
   };
 }

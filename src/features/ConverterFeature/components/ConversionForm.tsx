@@ -4,8 +4,9 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { ReactComponent as SwitchIcon } from "../../../assets/svgs/compare_arrows_black_24dp.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { converterActions } from "../slice";
+import { selectError, selectLoading } from "../slice/selectors";
 
 interface ConversionFormValues {
   amount: number;
@@ -16,12 +17,16 @@ interface ConversionFormValues {
 function ConversionForm() {
   const dispatch = useDispatch();
 
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+
   const {
     register,
     handleSubmit,
     setValue,
     getValues,
     formState: { errors },
+    reset,
   } = useForm<ConversionFormValues>();
 
   console.log({ errors });
@@ -43,6 +48,11 @@ function ConversionForm() {
       setValue("to", from);
     }
   }, [getValues, setValue]);
+
+  const handleReset = useCallback(() => {
+    reset();
+    dispatch(converterActions.resetConversionForm());
+  }, [dispatch, reset]);
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +93,18 @@ function ConversionForm() {
         })}
         error={errors?.to?.message}
       />
-      <Button htmlType="submit" variant="primary" text={"convert"} />
+      <Button
+        htmlType="submit"
+        variant="primary"
+        text={"convert"}
+        disabled={loading || !!error}
+      />
+      <Button
+        htmlType="reset"
+        variant="secondary"
+        text={"reset"}
+        onClick={handleReset}
+      />
     </StyledForm>
   );
 }
