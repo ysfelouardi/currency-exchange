@@ -4,6 +4,8 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { ReactComponent as SwitchIcon } from "../../../assets/svgs/compare_arrows_black_24dp.svg";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { converterActions } from "../slice";
 
 interface ConversionFormValues {
   amount: number;
@@ -12,6 +14,8 @@ interface ConversionFormValues {
 }
 
 function ConversionForm() {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -22,9 +26,14 @@ function ConversionForm() {
 
   console.log({ errors });
 
-  const onSubmit: SubmitHandler<ConversionFormValues> = useCallback((data) => {
-    console.log({ data });
-  }, []);
+  const onSubmit: SubmitHandler<ConversionFormValues> = useCallback(
+    (data) => {
+      console.log({ data });
+
+      dispatch(converterActions.convertAmount(data));
+    },
+    [dispatch]
+  );
 
   const handleSwitchValues = useCallback(() => {
     const [from, to] = getValues(["from", "to"]);

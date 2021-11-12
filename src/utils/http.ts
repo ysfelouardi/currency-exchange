@@ -1,5 +1,4 @@
-export const BASE_URL =
-  process.env.REACT_APP_BASE_URL || "https://api.nomics.com/v1";
+import config from "../config";
 
 export const HTTP_METHODS = Object.freeze({
   GET: { method: "GET" },
@@ -39,13 +38,13 @@ export const responseMiddleware = async (response: Response) => {
 };
 
 export const request = (url: string, options: object) =>
-  fetch(`${BASE_URL}/${url}`, options)
+  fetch(`${config.BASE_URL}/${url}`, options)
     .then(responseMiddleware)
     .then((res) => res.text())
     .then((e) => (!e ? {} : JSON.parse(e)));
 
 export const requestForBlob = (url: string, options: object) =>
-  fetch(`${BASE_URL}/${url}`, options)
+  fetch(`${config.BASE_URL}/${url}`, options)
     .then(responseMiddleware)
     .then((res) => res.blob());
 
@@ -59,16 +58,20 @@ export const http = (
   forBlob = false
 ) => {
   const { headers = { ...CONTENT_TYPE.JSON }, body } = data;
+
   const params = [
     url,
     {
       ...method,
-      headers: {
-        ...headers,
-      },
-      body: forBlob ? body : JSON.stringify(body),
+      headers,
+      ...(forBlob
+        ? { body }
+        : Object.keys(body).length === 0
+        ? {}
+        : { body: JSON.stringify(body) }),
     },
   ];
+
   // @ts-ignore
   return (forBlob ? requestForBlob : request)(...params);
 };
