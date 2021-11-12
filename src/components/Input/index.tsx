@@ -1,35 +1,34 @@
-import { ChangeEventHandler, memo } from "react";
+import { forwardRef, memo } from "react";
 import { InputWrapper, Label, StyledInput } from "./styles";
+import { UseFormRegister } from "react-hook-form";
 
 interface InputProps {
   label: string;
-  name: string;
+  className?: string;
   type: "text" | "number";
   value?: string;
-  onChange?: ChangeEventHandler;
-  className?: string;
+  error?: string;
 }
 
-function Input({
-  label,
-  value,
-  name,
-  type = "text",
-  onChange,
-  className,
-}: InputProps) {
+const Input = forwardRef<
+  HTMLInputElement,
+  InputProps & ReturnType<UseFormRegister<any>>
+>(({ onChange, name, label, value, type = "text", className, error }, ref) => {
   return (
-    <InputWrapper className={className}>
+    <InputWrapper className={className} hasError={!!error}>
       <Label htmlFor={name}>{label}</Label>
       <StyledInput
+        ref={ref}
         name={name}
         type={type}
         onChange={onChange}
         value={value}
+        hasError={!!error}
         {...(type === "number" && { min: 0 })}
       />
+      <p className={"error-message"}>{error}</p>
     </InputWrapper>
   );
-}
+});
 
 export default memo(Input);
