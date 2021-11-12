@@ -46,10 +46,13 @@ const slice = createSlice({
     gotExchangeRates(state, action: PayloadAction<Array<ExchangeRate>>) {
       state.exchangeRates = action.payload;
     },
-    resetConversionForm(state) {
+    resetConversionState(state) {
       state.loading = false;
       state.error = null;
       state.conversionFormValues = initialState.conversionFormValues;
+      state.conversionResult = null;
+      state.baseCurrencyRate = null;
+      state.targetCurrencyRate = null;
     },
   },
 });

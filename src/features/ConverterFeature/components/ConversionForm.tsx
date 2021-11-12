@@ -29,7 +29,7 @@ function ConversionForm() {
     reset,
   } = useForm<ConversionFormValues>();
 
-  console.log({ errors });
+  //console.log({ errors });
 
   const onSubmit: SubmitHandler<ConversionFormValues> = useCallback(
     (data) => {
@@ -51,7 +51,7 @@ function ConversionForm() {
 
   const handleReset = useCallback(() => {
     reset();
-    dispatch(converterActions.resetConversionForm());
+    dispatch(converterActions.resetConversionState());
   }, [dispatch, reset]);
 
   return (
