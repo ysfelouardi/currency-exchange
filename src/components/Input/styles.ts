@@ -10,6 +10,7 @@ export const StyledInput = styled.input<{ hasError?: boolean }>`
   border-bottom: 2px solid ${(props) => props.theme.colors.lightGray};
   color: ${(props) => props.theme.colors.dark};
   display: block;
+  text-transform: uppercase;
   ${({ disabled }) =>
     disabled &&
     css`

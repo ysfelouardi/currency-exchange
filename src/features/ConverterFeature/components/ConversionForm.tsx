@@ -54,6 +54,7 @@ function ConversionForm() {
         label={"from"}
         {...register("from", {
           required: "* required!",
+          setValueAs: (v) => v.toUpperCase(),
         })}
         error={errors?.from?.message}
       />
@@ -69,6 +70,7 @@ function ConversionForm() {
         label={"to"}
         {...register("to", {
           required: "* required!",
+          setValueAs: (v) => v.toUpperCase(),
         })}
         error={errors?.to?.message}
       />
