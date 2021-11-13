@@ -9,11 +9,7 @@ import {
   selectStatistics,
 } from "../slice/selectors";
 import Spinner from "../../../components/Spinner";
-
-// const rows = [...Array(7)].map(() => ({
-//   date: new Date().toISOString(),
-//   rate: Math.random(),
-// }));
+import { Sparklines, SparklinesBars, SparklinesLine } from "react-sparklines";
 
 function ExchangeHistoryResults() {
   const loading = useSelector(selectLoading);
@@ -41,6 +37,14 @@ function ExchangeHistoryResults() {
 
   return (
     <ExchangeHistoryResultsWrapper>
+      <div className={"col"}>
+        <Sparklines data={[5, 10, 5, 20, 10, 99, 12, 4, 7, 8, 9, 1, 44, 78]}>
+          <SparklinesBars
+            style={{ stroke: "white", fill: "#41c3f9", fillOpacity: 0.25 }}
+          />
+          <SparklinesLine style={{ stroke: "#41c3f9", fill: "none" }} />
+        </Sparklines>
+      </div>
       <div className="col">
         <Table headers={["Date", "Exchange Rate"]} rows={historyData} />
       </div>
