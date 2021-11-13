@@ -42,6 +42,12 @@ export function saveConversionFormData(
   );
 }
 
+export function saveOperationsToStorage(
+  data: Array<ConversionFormValues & { timestamp: string }>
+) {
+  localStorage.setItem("ConversionHistoryOperations", JSON.stringify(data));
+}
+
 /* istanbul ignore next line */
 export function getConversionFormData(): Array<
   ConversionFormValues & { timestamp: string }

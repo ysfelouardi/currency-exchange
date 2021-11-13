@@ -34,7 +34,12 @@ function HistoryOperations() {
     },
     [dispatch, navigate]
   );
-  const handleDeleteOp = useCallback((id: string) => {}, []);
+  const handleDeleteOp = useCallback(
+    (id: string) => {
+      dispatch(actions.deleteOperation(id));
+    },
+    [actions, dispatch]
+  );
 
   const mappedOperations = useMemo(
     () =>

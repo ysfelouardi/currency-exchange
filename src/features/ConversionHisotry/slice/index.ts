@@ -25,6 +25,10 @@ const slice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    deleteOperation(state, action: PayloadAction<string>) {},
+    operationDeleted(state, action: PayloadAction<Array<operation>>) {
+      state.operations = action.payload;
+    },
   },
 });
 

@@ -1,8 +1,14 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest, call, put, all, select } from "redux-saga/effects";
 import { historyOperationsActions } from ".";
-import { getConversionFormData, getProperDateString } from "../../../helpers";
+import {
+  getConversionFormData,
+  getProperDateString,
+  saveOperationsToStorage,
+} from "../../../helpers";
 import { ConversionFormValues } from "../../ConverterFeature/slice/types";
 import { operation } from "./types";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { selectOperations } from "./selectors";
 
 function* loadOperations() {
   try {
@@ -31,9 +37,31 @@ function* loadOperations() {
   }
 }
 
+function* deleteOperation(action: PayloadAction<string>) {
+  try {
+    const operations: Array<operation> = yield select(selectOperations);
+
+    const filteredOperations = operations.filter(
+      (op) => op.id !== action.payload
+    );
+
+    yield put(historyOperationsActions.operationDeleted(filteredOperations));
+
+    yield call(
+      saveOperationsToStorage,
+      filteredOperations.map(
+        (op) =>
+          ({ ...op.data, timestamp: op.id } as ConversionFormValues & {
+            timestamp: string;
+          })
+      )
+    );
+  } catch (e) {}
+}
+
 export function* HistoryOperationsSaga() {
-  yield takeLatest(
-    historyOperationsActions.loadOperations.type,
-    loadOperations
-  );
+  yield all([
+    takeLatest(historyOperationsActions.loadOperations.type, loadOperations),
+    takeLatest(historyOperationsActions.deleteOperation.type, deleteOperation),
+  ]);
 }
