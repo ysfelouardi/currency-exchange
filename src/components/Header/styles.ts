@@ -10,6 +10,7 @@ export const StyledHeader = styled.header`
   position: fixed;
   width: 100%;
   padding: 0 140px;
+  z-index: 2;
 `;
 
 export const Logo = styled.div`

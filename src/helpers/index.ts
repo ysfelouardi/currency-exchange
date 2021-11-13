@@ -17,3 +17,15 @@ export function calculateExchangeResult({
     result,
   };
 }
+
+export function getPreviousNDate({
+  date,
+  numberOfDays,
+}: {
+  date: Date;
+  numberOfDays: number;
+}) {
+  const previousDate = new Date(date);
+  previousDate.setDate(date.getDate() - numberOfDays);
+  return previousDate;
+}

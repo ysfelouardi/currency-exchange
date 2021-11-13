@@ -1,7 +1,10 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import Select from "../../../components/Select";
 import { ExchangeHistoryFiltersWrapper, RadioGroupContainer } from "./styles";
 import RadioButton from "../../../components/RadioButton";
+import { useDispatch, useSelector } from "react-redux";
+import { historyRatesActions } from "../slice";
+import { selectDuration } from "../slice/selectors";
 
 const options = [
   {
@@ -19,9 +22,27 @@ const options = [
 ];
 
 function ExchangeHistoryFilters() {
+  const duration = useSelector(selectDuration);
+  const dispatch = useDispatch();
+
+  const handleChangeDuration = useCallback(
+    (e) => {
+      const value = Number(e.target.value);
+      dispatch(historyRatesActions.changeDuration(value));
+      dispatch(historyRatesActions.getHistoryRates());
+    },
+    [dispatch]
+  );
+
   return (
     <ExchangeHistoryFiltersWrapper>
-      <Select name={"history-duration"} label={"Duration"} options={options} />
+      <Select
+        name={"history-duration"}
+        label={"Duration"}
+        options={options}
+        onChange={handleChangeDuration}
+        value={duration.toString()}
+      />
       <RadioGroupContainer>
         <RadioButton name={"history-display"} value={"table"} label="table" />
         <RadioButton name={"history-display"} value={"chart"} label="chart" />

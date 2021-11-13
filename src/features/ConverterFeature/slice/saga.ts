@@ -5,6 +5,7 @@ import { ConversionFormValues, ExchangeRate } from "./types";
 import { selectExchangeRates } from "./selectors";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { calculateExchangeResult } from "../../../helpers";
+import { historyRatesActions } from "../../ExchangeHistory/slice";
 
 function* convertAmount(action: PayloadAction<ConversionFormValues>) {
   try {
@@ -42,6 +43,9 @@ function* convertAmount(action: PayloadAction<ConversionFormValues>) {
           calculateExchangeResult({ base, target, amount: Number(amount) })
         )
       );
+
+      //get the exchange rate history
+      yield put(historyRatesActions.getHistoryRates());
     } else {
       yield put(converterActions.convertAmountFailed("*currencies invalid!"));
     }

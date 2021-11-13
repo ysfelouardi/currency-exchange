@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled, { css } from "styled-components/macro";
 
 export const ExchangeHistoryFiltersWrapper = styled.div`
   padding: 20px 0;
@@ -17,4 +17,32 @@ export const RadioGroupContainer = styled.div`
 
 export const ExchangeHistoryContainer = styled.section`
   padding-top: 20px;
+`;
+
+export const ExchangeHistoryResultsWrapper = styled.div<{
+  hasError?: boolean;
+  isLoading?: boolean;
+}>`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  table {
+    width: 49%;
+  }
+  table:first-child {
+    margin-right: 5px;
+  }
+
+  ${({ hasError, theme, isLoading }) =>
+    (hasError || isLoading) &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 340px;
+      flex-direction: column;
+
+      color: ${theme.colors.warn};
+      font-weight: ${theme.fontWeight.body};
+    `}
 `;
