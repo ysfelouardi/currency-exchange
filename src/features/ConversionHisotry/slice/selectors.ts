@@ -15,12 +15,3 @@ export const selectOperations = createSelector(
   [selectSlice],
   ({ operations }) => operations
 );
-
-export const selectMappedOps = createSelector([selectSlice], ({ operations }) =>
-  operations.map((op) => {
-    let newOp = { ...op };
-    delete newOp.data;
-    delete newOp.id;
-    return newOp;
-  })
-);

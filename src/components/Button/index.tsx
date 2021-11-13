@@ -2,7 +2,7 @@ import { memo, MouseEventHandler, ReactNode } from "react";
 import { StyledButton } from "./styles";
 
 interface ButtonProps {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "danger";
   text?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   htmlType?: "button" | "submit" | "reset";

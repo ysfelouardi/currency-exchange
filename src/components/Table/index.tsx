@@ -22,8 +22,8 @@ function Table({ headers = [], rows = [] }: TableProps) {
       <tbody>
         {rows.map((row, index) => (
           <tr key={`row-${index}`}>
-            {Object.values(row).map((c) => (
-              <td key={c}>{c}</td>
+            {Object.values(row).map((c, cIndex) => (
+              <td key={Object.keys(row)[cIndex]}>{c}</td>
             ))}
           </tr>
         ))}

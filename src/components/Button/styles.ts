@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/macro";
 
 export const StyledButton = styled.button<{
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "danger";
 }>`
   cursor: pointer;
   display: inline-flex;
@@ -43,6 +43,17 @@ export const StyledButton = styled.button<{
         return css`
           background-color: inherit;
           color: ${theme.colors.primary};
+          box-shadow: none;
+          &:hover {
+            background-color: #00968814;
+            box-shadow: none;
+          }
+        `;
+
+      case "danger":
+        return css`
+          background-color: inherit;
+          color: ${theme.colors.warn};
           box-shadow: none;
           &:hover {
             background-color: #00968814;

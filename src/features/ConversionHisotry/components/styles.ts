@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 
 export const HistoryOpsWrapper = styled.div<{
   hasError?: boolean;
@@ -18,4 +18,21 @@ export const HistoryOpsWrapper = styled.div<{
       color: ${theme.colors.warn};
       font-weight: ${theme.fontWeight.body};
     `}
+`;
+
+export const ActionButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  button svg {
+    margin: 0 10px;
+  }
+
+  svg.delete {
+    fill: ${(props) => props.theme.colors.warn};
+  }
+
+  svg.view {
+    fill: ${(props) => props.theme.colors.primary};
+  }
 `;

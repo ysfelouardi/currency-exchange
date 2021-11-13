@@ -25,10 +25,4 @@ export const StyledTable = styled.table`
       background-color: ${(props) => props.theme.colors.lightGray};
     }
   }
-
-  div {
-    display: flex;
-    width: 100%;
-    background: red;
-  }
 `;

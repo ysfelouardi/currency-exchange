@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import Table from "../../../components/Table";
 import { HistoryOpsWrapper } from "./styles";
 import { useHistoryOperationsSlice } from "../slice";
@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectError,
   selectLoading,
-  selectMappedOps,
   selectOperations,
 } from "../slice/selectors";
 import Spinner from "../../../components/Spinner";
+import ActionButtons from "./ActionButtons";
 
 const headers = ["Date", "Event", "Actions"];
 
@@ -20,7 +20,17 @@ function HistoryOperations() {
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
-  const mappedOps = useSelector(selectMappedOps);
+  const operations = useSelector(selectOperations);
+
+  const mappedOperations = useMemo(
+    () =>
+      operations.map((op) => ({
+        event: op.event,
+        date: op.date,
+        actions: <ActionButtons />,
+      })),
+    [operations]
+  );
 
   useEffect(() => {
     dispatch(actions.loadOperations());
@@ -44,7 +54,7 @@ function HistoryOperations() {
 
   return (
     <HistoryOpsWrapper>
-      <Table headers={headers} rows={mappedOps} />
+      <Table headers={headers} rows={mappedOperations} />
     </HistoryOpsWrapper>
   );
 }
