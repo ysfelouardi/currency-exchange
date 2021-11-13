@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from "react";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
 import Table from "../../../components/Table";
 import { HistoryOpsWrapper } from "./styles";
 import { useHistoryOperationsSlice } from "../slice";
@@ -10,6 +10,9 @@ import {
 } from "../slice/selectors";
 import Spinner from "../../../components/Spinner";
 import ActionButtons from "./ActionButtons";
+import { ConversionFormValues } from "../../ConverterFeature/slice/types";
+import { converterActions } from "../../ConverterFeature/slice";
+import { useNavigate } from "react-router-dom";
 
 const headers = ["Date", "Event", "Actions"];
 
@@ -17,19 +20,35 @@ function HistoryOperations() {
   const { actions } = useHistoryOperationsSlice();
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
   const operations = useSelector(selectOperations);
+
+  const handleViewOp = useCallback(
+    (data: ConversionFormValues) => {
+      dispatch(converterActions.convertAmount(data));
+      navigate("/", { replace: true });
+    },
+    [dispatch, navigate]
+  );
+  const handleDeleteOp = useCallback((id: string) => {}, []);
 
   const mappedOperations = useMemo(
     () =>
       operations.map((op) => ({
         event: op.event,
         date: op.date,
-        actions: <ActionButtons />,
+        actions: (
+          <ActionButtons
+            handleDelete={() => handleDeleteOp(op.id as string)}
+            handleView={() => handleViewOp(op.data as ConversionFormValues)}
+          />
+        ),
       })),
-    [operations]
+    [operations, handleViewOp, handleDeleteOp]
   );
 
   useEffect(() => {

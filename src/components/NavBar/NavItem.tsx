@@ -10,12 +10,12 @@ const NavItem: FC<NavItemProps> = ({ title, children }) => {
   const { setActiveItem, activeItem } = useNavBarContext();
 
   return (
-    <li
+    <span
       {...(activeItem === title && { className: "active" })}
       onClick={() => setActiveItem(title)}
     >
       {children}
-    </li>
+    </span>
   );
 };
 

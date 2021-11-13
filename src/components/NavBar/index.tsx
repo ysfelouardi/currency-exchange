@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useMemo, useState } from "react";
 import useEffectAfterMount from "../../hooks/useEffectAfterMount";
 import { NavBarContext } from "./useNavBarContext";
 import { StyledNav } from "./styles";
@@ -7,27 +7,34 @@ import NavItem from "./NavItem";
 interface NavBarProps {
   children: ReactElement[];
   onItemChange?: (title: string) => void;
-  defaultActiveItem?: string;
+  defaultItem?: string;
 }
 
 const NavBar = ({
   children,
   onItemChange = () => {},
-  defaultActiveItem,
+  defaultItem,
 }: NavBarProps) => {
   const [activeItem, setActiveItem] = useState<string>(
-    defaultActiveItem || children[0].props.title
+    defaultItem || children[0].props.title
   );
 
   useEffectAfterMount(() => {
     onItemChange(activeItem);
-  }, [activeItem, onItemChange]);
+  }, [activeItem]);
+
+  useEffect(() => {
+    defaultItem && setActiveItem(defaultItem);
+  }, [defaultItem]);
+
+  const value = useMemo(
+    () => ({ activeItem, setActiveItem }),
+    [activeItem, setActiveItem]
+  );
 
   return (
-    <NavBarContext.Provider value={{ activeItem, setActiveItem }}>
-      <StyledNav>
-        <ul>{children}</ul>
-      </StyledNav>
+    <NavBarContext.Provider value={value}>
+      <StyledNav>{children}</StyledNav>
     </NavBarContext.Provider>
   );
 };
