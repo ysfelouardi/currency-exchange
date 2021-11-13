@@ -56,7 +56,7 @@ export const StyledButton = styled.button<{
           color: ${theme.colors.warn};
           box-shadow: none;
           &:hover {
-            background-color: #00968814;
+            background-color: #c70d380f;
             box-shadow: none;
           }
         `;
