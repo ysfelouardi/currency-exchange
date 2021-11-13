@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components/macro";
 
+export const ConverterContainer = styled.section``;
+
 export const StyledForm = styled.form`
   display: flex;
   align-items: center;
