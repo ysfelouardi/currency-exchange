@@ -30,3 +30,8 @@ export const selectDisplayedView = createSelector(
   [selectSlice],
   ({ displayedView }) => displayedView
 );
+
+export const selectRatesData = createSelector(
+  [selectSlice],
+  ({ historyData }) => historyData.map(({ rate }) => Number(rate))
+);

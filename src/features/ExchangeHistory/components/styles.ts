@@ -30,7 +30,7 @@ export const ExchangeHistoryResultsWrapper = styled.div<{
     width: 49%;
   }
   .col:first-child {
-    margin-right: 5px;
+    margin-right: 20px;
   }
 
   ${({ hasError, theme, isLoading }) =>
