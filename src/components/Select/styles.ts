@@ -8,4 +8,5 @@ export const SelectWrapper = styled(InputWrapper)`
 export const StyledSelect = styled(StyledInput)<{ hasError?: boolean }>`
   outline: none;
   text-transform: lowercase;
+  font-weight: ${(props) => props.theme.fontWeight.regular};
 `;

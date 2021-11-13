@@ -1,6 +1,7 @@
 import { memo } from "react";
 import Select from "../../../components/Select";
-import { ExchangeHistoryFiltersWrapper } from "./styles";
+import { ExchangeHistoryFiltersWrapper, RadioGroupContainer } from "./styles";
+import RadioButton from "../../../components/RadioButton";
 
 const options = [
   {
@@ -21,6 +22,10 @@ function ExchangeHistoryFilters() {
   return (
     <ExchangeHistoryFiltersWrapper>
       <Select name={"history-duration"} label={"Duration"} options={options} />
+      <RadioGroupContainer>
+        <RadioButton name={"history-display"} value={"table"} label="table" />
+        <RadioButton name={"history-display"} value={"chart"} label="chart" />
+      </RadioGroupContainer>
     </ExchangeHistoryFiltersWrapper>
   );
 }

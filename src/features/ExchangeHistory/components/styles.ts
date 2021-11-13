@@ -5,6 +5,14 @@ export const ExchangeHistoryFiltersWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 50%;
+  align-items: flex-end;
+`;
+
+export const RadioGroupContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 30%;
 `;
 
 export const ExchangeHistoryContainer = styled.section`

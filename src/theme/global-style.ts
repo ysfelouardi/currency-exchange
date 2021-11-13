@@ -91,7 +91,7 @@ export const GlobalStyle = createGlobalStyle<{ customTheme: ThemeInterface }>`
     }
 
     body,
-    body * {
+    body * ,*:before, *:after {
         box-sizing: border-box;
     }
     
