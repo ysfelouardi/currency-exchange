@@ -25,11 +25,11 @@ export const ExchangeHistoryResultsWrapper = styled.div<{
 }>`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  table {
+
+  .col {
     width: 49%;
   }
-  table:first-child {
+  .col:first-child {
     margin-right: 5px;
   }
 

@@ -4,7 +4,8 @@ import { ExchangeHistoryFiltersWrapper, RadioGroupContainer } from "./styles";
 import RadioButton from "../../../components/RadioButton";
 import { useDispatch, useSelector } from "react-redux";
 import { historyRatesActions } from "../slice";
-import { selectDuration } from "../slice/selectors";
+import { selectDisplayedView, selectDuration } from "../slice/selectors";
+import { selectError } from "../../ConverterFeature/slice/selectors";
 
 const options = [
   {
@@ -25,11 +26,23 @@ function ExchangeHistoryFilters() {
   const duration = useSelector(selectDuration);
   const dispatch = useDispatch();
 
+  const converterFormError = useSelector(selectError);
+
+  const displayedView = useSelector(selectDisplayedView);
+
   const handleChangeDuration = useCallback(
     (e) => {
       const value = Number(e.target.value);
       dispatch(historyRatesActions.changeDuration(value));
       dispatch(historyRatesActions.getHistoryRates());
+    },
+    [dispatch]
+  );
+
+  const handleViewChange = useCallback(
+    (e) => {
+      const { value } = e.target;
+      dispatch(historyRatesActions.setDisplayedView(value));
     },
     [dispatch]
   );
@@ -42,10 +55,23 @@ function ExchangeHistoryFilters() {
         options={options}
         onChange={handleChangeDuration}
         value={duration.toString()}
+        disabled={!!converterFormError}
       />
       <RadioGroupContainer>
-        <RadioButton name={"history-display"} value={"table"} label="table" />
-        <RadioButton name={"history-display"} value={"chart"} label="chart" />
+        <RadioButton
+          name={"history-display"}
+          value={"table"}
+          label="table"
+          checked={displayedView === "table"}
+          onChange={handleViewChange}
+        />
+        <RadioButton
+          name={"history-display"}
+          value={"chart"}
+          label="chart"
+          checked={displayedView === "chart"}
+          onChange={handleViewChange}
+        />
       </RadioGroupContainer>
     </ExchangeHistoryFiltersWrapper>
   );

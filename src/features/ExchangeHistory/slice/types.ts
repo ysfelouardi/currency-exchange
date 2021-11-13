@@ -14,4 +14,5 @@ export type ExchangeHistoryState = {
   historyData: Array<ExchangeHistory>;
   duration: number;
   statistics: Array<StatsType>;
+  displayedView: "table" | "chart";
 };

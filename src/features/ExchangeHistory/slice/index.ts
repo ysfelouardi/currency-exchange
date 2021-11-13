@@ -9,6 +9,7 @@ export const initialState: ExchangeHistoryState = {
   historyData: [],
   duration: 7,
   statistics: [],
+  displayedView: "table",
 };
 
 const slice = createSlice({
@@ -32,6 +33,9 @@ const slice = createSlice({
     },
     changeDuration(state, action: PayloadAction<number>) {
       state.duration = action.payload;
+    },
+    setDisplayedView(state, action: PayloadAction<"table" | "chart">) {
+      state.displayedView = action.payload;
     },
   },
 });

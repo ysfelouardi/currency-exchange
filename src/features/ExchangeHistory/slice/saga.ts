@@ -34,7 +34,7 @@ function* getHistoryRates() {
       const sortedHistoryRates = data
         .sort((a, b) => -a.timestamp.localeCompare(b.timestamp))
         .map((e) => ({
-          timestamp: new Date(e.timestamp).toLocaleDateString(),
+          timestamp: new Date(e.timestamp).toLocaleDateString("en-GB"),
           rate: e.rate,
         }));
       console.log("HISTORY RATES ", { data, sortedHistoryRates });

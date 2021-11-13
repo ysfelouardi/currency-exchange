@@ -41,8 +41,12 @@ function ExchangeHistoryResults() {
 
   return (
     <ExchangeHistoryResultsWrapper>
-      <Table headers={["Date", "Exchange Rate"]} rows={historyData} />
-      <Table headers={["Statistics"]} rows={statistics} />
+      <div className="col">
+        <Table headers={["Date", "Exchange Rate"]} rows={historyData} />
+      </div>
+      <div className={"col"}>
+        <Table headers={["Statistics"]} rows={statistics} />
+      </div>
     </ExchangeHistoryResultsWrapper>
   );
 }

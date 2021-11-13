@@ -25,3 +25,8 @@ export const selectStatistics = createSelector(
   [selectSlice],
   ({ statistics }) => statistics
 );
+
+export const selectDisplayedView = createSelector(
+  [selectSlice],
+  ({ displayedView }) => displayedView
+);

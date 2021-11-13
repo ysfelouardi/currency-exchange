@@ -8,6 +8,7 @@ interface SelectProps {
   options: Array<{ value: string; text: string }>;
   value?: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
+  disabled?: boolean;
 }
 
 const Select = ({
@@ -16,11 +17,18 @@ const Select = ({
   label,
   options = [],
   value,
+  disabled = false,
 }: SelectProps) => {
   return (
     <SelectWrapper>
       <Label htmlFor={name}>{label}</Label>
-      <StyledSelect name={name} onChange={onChange} value={value} as={"select"}>
+      <StyledSelect
+        name={name}
+        onChange={onChange}
+        value={value}
+        as={"select"}
+        disabled={disabled}
+      >
         {options.map(({ value, text }) => (
           <option key={value} value={value}>
             {text}

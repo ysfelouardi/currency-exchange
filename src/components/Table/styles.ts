@@ -4,6 +4,9 @@ export const StyledTable = styled.table`
   background: white;
   box-shadow: rgb(0 0 0 / 15%) -1px 2px 11px 0px;
 
+  border-spacing: 0;
+  width: 100%;
+
   th,
   td {
     padding: 20px;
