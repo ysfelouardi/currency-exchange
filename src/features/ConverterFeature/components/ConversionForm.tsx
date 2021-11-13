@@ -6,7 +6,11 @@ import { ReactComponent as SwitchIcon } from "../../../assets/svgs/compare_arrow
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { converterActions } from "../slice";
-import { selectError, selectLoading } from "../slice/selectors";
+import {
+  selectConversionFromValues,
+  selectError,
+  selectLoading,
+} from "../slice/selectors";
 
 interface ConversionFormValues {
   amount: number;
@@ -20,6 +24,11 @@ function ConversionForm() {
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
+  // @ts-ignore
+  const fromValues: ConversionFormValues = useSelector(
+    selectConversionFromValues
+  );
+
   const {
     register,
     handleSubmit,
@@ -27,7 +36,13 @@ function ConversionForm() {
     getValues,
     formState: { errors },
     reset,
-  } = useForm<ConversionFormValues>();
+  } = useForm<ConversionFormValues>({
+    defaultValues: {
+      from: fromValues?.from,
+      to: fromValues?.to,
+      amount: fromValues.amount,
+    },
+  });
 
   //console.log({ errors });
 
@@ -73,7 +88,7 @@ function ConversionForm() {
         label={"from"}
         {...register("from", {
           required: "* required!",
-          setValueAs: (v) => v.toUpperCase(),
+          setValueAs: (v) => v?.toUpperCase(),
         })}
         error={errors?.from?.message}
       />
@@ -89,7 +104,7 @@ function ConversionForm() {
         label={"to"}
         {...register("to", {
           required: "* required!",
-          setValueAs: (v) => v.toUpperCase(),
+          setValueAs: (v) => v?.toUpperCase(),
         })}
         error={errors?.to?.message}
       />

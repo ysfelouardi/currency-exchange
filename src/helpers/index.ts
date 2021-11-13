@@ -33,19 +33,27 @@ export function getPreviousNDate({
 }
 
 export function saveConversionFormData(
-  formData: ConversionFormValues & { timestamp: Date }
+  formData: ConversionFormValues & { timestamp: string }
 ) {
   const savedData = getConversionFormData();
   localStorage.setItem(
     "ConversionHistoryOperations",
-    JSON.stringify([...savedData, formData])
+    JSON.stringify([formData, ...savedData])
   );
 }
 
 /* istanbul ignore next line */
 export function getConversionFormData(): Array<
-  ConversionFormValues & { timestamp: Date }
+  ConversionFormValues & { timestamp: string }
 > {
   const data = localStorage.getItem("ConversionHistoryOperations");
   return !data ? [] : JSON.parse(data);
+}
+
+export function getProperDateString(isoDate: string): string {
+  const date = new Date(isoDate);
+  const dateString = date.toLocaleDateString("en-GB");
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${dateString} @ ${hours}:${minutes}`;
 }

@@ -53,7 +53,7 @@ function* convertAmount(action: PayloadAction<ConversionFormValues>) {
       //save op to localstorage
       yield call(saveConversionFormData, {
         ...action.payload,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
       });
     } else {
       yield put(converterActions.convertAmountFailed("*currencies invalid!"));

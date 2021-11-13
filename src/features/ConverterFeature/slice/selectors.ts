@@ -20,6 +20,11 @@ export const selectCurrency = createSelector(
   ({ conversionFormValues: { from } }) => from
 );
 
+export const selectConversionFromValues = createSelector(
+  [selectSlice],
+  ({ conversionFormValues }) => conversionFormValues
+);
+
 export const selectConversionResult = createSelector(
   [selectSlice],
   ({
