@@ -18,6 +18,16 @@ export const HistoryOpsWrapper = styled.div<{
       color: ${theme.colors.warn};
       font-weight: ${theme.fontWeight.body};
     `}
+
+  tbody tr div.action-buttons {
+    visibility: hidden;
+  }
+
+  tbody tr:hover {
+    div.action-buttons {
+      visibility: visible;
+    }
+  }
 `;
 
 export const ActionButtonsContainer = styled.div`

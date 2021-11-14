@@ -11,7 +11,7 @@ interface ActionButtonsProps {
 
 function ActionButtons({ handleView, handleDelete }: ActionButtonsProps) {
   return (
-    <ActionButtonsContainer>
+    <ActionButtonsContainer className="action-buttons">
       <Button
         text={"View"}
         variant={"ghost"}
