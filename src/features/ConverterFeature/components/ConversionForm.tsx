@@ -6,11 +6,7 @@ import { ReactComponent as SwitchIcon } from "../../../assets/svgs/compare_arrow
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { converterActions } from "../slice";
-import {
-  selectConversionFromValues,
-  selectError,
-  selectLoading,
-} from "../slice/selectors";
+import { selectConversionFromValues, selectLoading } from "../slice/selectors";
 
 interface ConversionFormValues {
   amount: number;
@@ -22,12 +18,10 @@ function ConversionForm() {
   const dispatch = useDispatch();
 
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
 
-  // @ts-ignore
-  const fromValues: ConversionFormValues = useSelector(
+  const fromValues = useSelector(
     selectConversionFromValues
-  );
+  ) as ConversionFormValues;
 
   const {
     register,
@@ -112,7 +106,7 @@ function ConversionForm() {
         htmlType="submit"
         variant="primary"
         text={"convert"}
-        disabled={loading || !!error}
+        disabled={loading}
       />
       <Button
         htmlType="reset"
