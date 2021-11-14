@@ -37,6 +37,10 @@ const slice = createSlice({
     setDisplayedView(state, action: PayloadAction<"table" | "chart">) {
       state.displayedView = action.payload;
     },
+    resetExchangeData(state) {
+      state.historyData = [];
+      state.statistics = [];
+    },
   },
 });
 

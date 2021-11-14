@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { converterActions } from "../slice";
 import { selectConversionFromValues, selectLoading } from "../slice/selectors";
+import { historyRatesActions } from "../../ExchangeHistory/slice";
 
 interface ConversionFormValues {
   amount: number;
@@ -61,6 +62,7 @@ function ConversionForm() {
   const handleReset = useCallback(() => {
     reset();
     dispatch(converterActions.resetConversionState());
+    dispatch(historyRatesActions.resetExchangeData());
   }, [dispatch, reset]);
 
   return (

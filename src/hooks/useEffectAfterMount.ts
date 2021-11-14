@@ -11,5 +11,6 @@ export default function useEffectAfterMount(
       return cb();
     }
     justMounted.current = false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 }
