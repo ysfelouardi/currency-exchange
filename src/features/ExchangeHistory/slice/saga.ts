@@ -2,16 +2,20 @@ import { call, put, takeLatest, select } from "redux-saga/effects";
 import { historyRatesActions } from ".";
 import { getHistoryRatesApi } from "./api";
 import { ExchangeHistory, StatsType } from "./types";
-import { getPreviousNDate } from "../../../helpers";
+import { getPreviousNDate, sleep } from "../../../helpers";
 import { selectDuration } from "./selectors";
-import { selectCurrency } from "../../ConverterFeature/slice/selectors";
+import {
+  selectBaseCurrency,
+  selectTargetCurrency,
+} from "../../ConverterFeature/slice/selectors";
 
 function* getHistoryRates() {
   try {
     const duration: number = yield select(selectDuration);
-    const currency: string = yield select(selectCurrency);
+    const baseCurrency: string = yield select(selectBaseCurrency);
+    const targetCurrency: string = yield select(selectTargetCurrency);
 
-    if (currency === null) {
+    if (baseCurrency === null || targetCurrency === null) {
       yield put(
         historyRatesActions.getHistoryRatesFailed(
           "Please fill in the conversion form!"
@@ -26,18 +30,42 @@ function* getHistoryRates() {
       });
 
       console.log({ today, previousDate });
-      const data: Array<ExchangeHistory> = yield call(getHistoryRatesApi, {
-        currency,
+
+      //I ADDED THIS INTENTIONALLY CAUSE OF THE REQUEST LIMIT RATE ONN THE NOMICS API
+      yield call(sleep);
+
+      const baseData: Array<ExchangeHistory> = yield call(getHistoryRatesApi, {
+        currency: baseCurrency,
         startDate: previousDate.toISOString(),
         endDate: today.toISOString(),
       });
-      const sortedHistoryRates = data
+
+      yield call(sleep);
+
+      const targetData: Array<ExchangeHistory> = yield call(
+        getHistoryRatesApi,
+        {
+          currency: targetCurrency,
+          startDate: previousDate.toISOString(),
+          endDate: today.toISOString(),
+        }
+      );
+
+      const resultData: Array<ExchangeHistory> = baseData.map(
+        (e, index) =>
+          ({
+            timestamp: e.timestamp,
+            rate: Number(Number(e.rate) / Number(targetData[index].rate)),
+          } as unknown as ExchangeHistory)
+      );
+
+      const sortedHistoryRates = resultData
         .sort((a, b) => -a.timestamp.localeCompare(b.timestamp))
         .map((e) => ({
           timestamp: new Date(e.timestamp).toLocaleDateString("en-GB"),
           rate: e.rate,
         }));
-      console.log("HISTORY RATES ", { data, sortedHistoryRates });
+      console.log("HISTORY RATES ", { resultData, sortedHistoryRates });
 
       const stats = sortedHistoryRates.reduce(
         (result, e) => ({

@@ -63,3 +63,5 @@ export function getProperDateString(isoDate: string): string {
   const minutes = String(date.getMinutes()).padStart(2, "0");
   return `${dateString} @ ${hours}:${minutes}`;
 }
+
+export const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
