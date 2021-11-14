@@ -52,7 +52,7 @@ function ConversionForm() {
 
   const handleSwitchValues = useCallback(() => {
     const [from, to] = getValues(["from", "to"]);
-    if (from !== "" && to !== "") {
+    if (!!from && !!to) {
       console.log({ from, to });
       setValue("from", to);
       setValue("to", from);
