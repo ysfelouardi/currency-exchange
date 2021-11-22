@@ -33,8 +33,8 @@ function ConversionForm() {
     reset,
   } = useForm<ConversionFormValues>({
     defaultValues: {
-      from: fromValues?.from,
-      to: fromValues?.to,
+      from: fromValues.from,
+      to: fromValues.to,
       amount: fromValues.amount,
     },
   });
@@ -43,7 +43,7 @@ function ConversionForm() {
 
   const onSubmit: SubmitHandler<ConversionFormValues> = useCallback(
     (data) => {
-      console.log({ data });
+      console.log("SUBMIT", { data });
 
       dispatch(converterActions.convertAmount(data));
     },
@@ -60,7 +60,12 @@ function ConversionForm() {
   }, [getValues, setValue]);
 
   const handleReset = useCallback(() => {
-    reset();
+    reset({
+      from: undefined,
+      to: undefined,
+      amount: undefined,
+    });
+
     dispatch(converterActions.resetConversionState());
     dispatch(historyRatesActions.resetExchangeData());
   }, [dispatch, reset]);
