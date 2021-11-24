@@ -1,6 +1,7 @@
 import * as selectors from "../selectors";
 import type { RootState } from "../../../../store/types";
 import { initialState } from "../index";
+import type { ConversionFormValues, ExchangeRate } from "../types";
 
 describe("ConverterFeature selectors", () => {
   let state: RootState = {};
@@ -46,7 +47,7 @@ describe("ConverterFeature selectors", () => {
   });
 
   it("should select conversion form values", () => {
-    const fromValues = {
+    const fromValues: ConversionFormValues = {
       from: "BTC",
       to: "ETH",
       amount: 45,
@@ -62,7 +63,7 @@ describe("ConverterFeature selectors", () => {
   });
 
   it("should select exchange rates", () => {
-    const rate = {
+    const rate: ExchangeRate = {
         currency: "MAD",
         rate: "1.45",
         timestamp: new Date().toISOString(),
