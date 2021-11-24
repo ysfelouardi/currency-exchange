@@ -10,7 +10,7 @@ import {
 } from "../../../helpers";
 import { historyRatesActions } from "../../ExchangeHistory/slice";
 
-function* convertAmount(action: PayloadAction<ConversionFormValues>) {
+export function* convertAmount(action: PayloadAction<ConversionFormValues>) {
   try {
     let rates: Array<ExchangeRate> = yield select(selectExchangeRates);
     if (rates === null || rates.length === 0) {
@@ -59,7 +59,7 @@ function* convertAmount(action: PayloadAction<ConversionFormValues>) {
       yield put(converterActions.convertAmountFailed("*currencies invalid!"));
     }
   } catch (e) {
-    console.error("error getting exchange amounts ....", e);
+    console.log("error getting exchange amounts ....", e);
     yield put(
       converterActions.convertAmountFailed("something went wrong try again!")
     );
